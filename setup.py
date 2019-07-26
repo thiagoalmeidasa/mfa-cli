@@ -20,6 +20,8 @@ setup(
     author='Thiago Almeida',
     author_email='thiagoalmeidasa@gmail.com',
     url='https://github.com/thiagoalmeidasa/mfa-cli',
-    install_requires=['pyotp', 'pyyaml', 'click', 'pyaescrypt'],
+    install_requires=[
+        'pyotp==2.2.7', 'pyyaml==5.1.1', 'click==7.0', 'pyaescrypt==0.4.3'
+    ],
     tests_require=['pylint'],
 )

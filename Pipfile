@@ -4,14 +4,14 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
-pylint = "*"
-ipython = "*"
+pylint = "==2.3.1"
+ipython = "==7.6.1"
+twine = "*"
 
 [packages]
-pyotp = "*"
-pyyaml = "*"
-click = "*"
-pyaescrypt = "*"
+mfa-cli = {editable = true,path = "."}
 
 [requires]
 python_version = "3.7"
+
+# vim: ft=toml
