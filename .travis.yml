@@ -1,8 +1,4 @@
 ---
-install:
-- pip install pipenv
-- pipenv install --dev
-
 script:
 - pipenv run pytest
 
@@ -20,9 +16,16 @@ jobs:
 
   - stage: lint
     script: pylint mfacli/
+    install:
+    - pip install pipenv
+    - pipenv install --dev
+
 
   - stage: deploy
     script: skip
+    install:
+    - pip install pipenv twine
+    - pipenv install --deploy
     deploy:
       provider: pypi
       user: '@token'
