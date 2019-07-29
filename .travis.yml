@@ -1,0 +1,32 @@
+---
+install:
+- pip install pipenv
+- pipenv install --dev
+
+script:
+- pipenv run pytest
+
+
+language: python
+python: 3.7
+# cache:
+#   directories:
+#     - $HOME/virtualenv/python3.6/
+
+jobs:
+  include:
+  # - stage: unit
+  #   script: pytest tests/unit
+
+  - stage: lint
+    script: pylint mfacli/
+
+  - stage: deploy
+    script: skip
+    deploy:
+      provider: pypi
+      user: '@token'
+      password: $PYPI_PASSWORD
+      distributions: sdist
+      on:
+        tags: true
