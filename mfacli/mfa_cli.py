@@ -28,15 +28,13 @@ except ImportError:
 CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
 
 
-# yapf: disable
 @click.group(context_settings=CONTEXT_SETTINGS)
 @click.version_option(version='1.0.0')
 def main():
     """CLI tool for generating one-time passwords."""
+    pass
 
 
-# yapf: enable
-@click.group(context_settings=CONTEXT_SETTINGS)
 @main.command()
 @click.option('-kf',
               '--keyfile',
