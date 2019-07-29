@@ -1,4 +1,12 @@
 ---
+install:
+- pip install pipenv
+- pipenv install --dev
+
+script:
+- pipenv run pytest
+
+
 language: python
 python: 3.7
 # cache:
@@ -12,16 +20,9 @@ jobs:
 
   - stage: lint
     script: pylint mfacli/
-    install:
-    - pip install pipenv
-    - pipenv install --dev -e .
-
 
   - stage: deploy
     script: skip
-    install:
-    - pip install pipenv
-    - pipenv install --deploy
     deploy:
       provider: pypi
       user: '@token'
