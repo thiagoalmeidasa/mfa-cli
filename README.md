@@ -15,5 +15,5 @@ $ python -m mfa_cli new-totp --keyfile codes.yml --keyname myservice
 ## Instalation
 
 ```bash
-pip install mfacli
+pip install mfa-cli
 ```
