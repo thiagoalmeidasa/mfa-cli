@@ -21,7 +21,8 @@ setup(
     author_email='thiagoalmeidasa@gmail.com',
     url='https://github.com/thiagoalmeidasa/mfa-cli',
     install_requires=[
-        'pyotp==2.2.7', 'pyyaml==5.1.1', 'click==7.0', 'pyaescrypt==0.4.3'
+        'pyotp==2.2.7', 'pyyaml==5.1.1', 'click==7.0', 'pyaescrypt==0.4.3',
+        'pyperclip==1.7.0'
     ],
     tests_require=['pylint'],
 )

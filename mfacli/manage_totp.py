@@ -88,10 +88,6 @@ class TOTP:
         if not self.secret_keys:
             self.read_keys_file()
 
-        if not keyname:
-            print("No key selected, select a key from the list:")
-            keyname = self.choose_one_key()
-
         if keyname in self.secret_keys.keys():
             return pyotp.TOTP(self.get_key_by_name(keyname)).now()
 
