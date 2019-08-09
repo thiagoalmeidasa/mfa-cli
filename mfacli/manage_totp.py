@@ -6,6 +6,8 @@ import sys
 
 import yaml
 
+import base64
+
 try:
     import pyotp
 except ImportError:
@@ -22,6 +24,17 @@ class TOTP:
     def __init__(self, keyfile):
         self.keyfile = keyfile
         self.secret_keys = self.read_keys_file()
+
+    def verify_key(self, keyname):
+        """Verify if a secret_key is a valid base32 value"""
+        try:
+            base64.b32decode(self.get_key_by_name(keyname))
+            return True
+        except base64.binascii.Error:
+            print(
+                "Invalid key for: {}, verify it with your provider or get a new one"
+                .format(keyname))
+            sys.exit(1)
 
     def read_keys_file(self):
         """
@@ -89,7 +102,8 @@ class TOTP:
             self.read_keys_file()
 
         if keyname in self.secret_keys.keys():
+            self.verify_key(keyname)
             return pyotp.TOTP(self.get_key_by_name(keyname)).now()
 
-        print("Invalid key, try to list your keys")
+        print("Key not in your keyfiles, try to list your keys")
         sys.exit(1)

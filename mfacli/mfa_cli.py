@@ -52,7 +52,7 @@ def new_totp(keyname, keyfile):
     pyperclip.copy(totp_now)
     print("\n{} otp: {}\nValid for: {} seconds\n"
           "Available on your clipboard.".format(keyname, totp_now,
-                                                      remaining_time))
+                                                remaining_time))
 
 
 @main.command()
