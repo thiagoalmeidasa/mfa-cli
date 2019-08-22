@@ -21,7 +21,13 @@ jobs:
     install:
     - pip install pipenv
     - pipenv install --dev
-    - sudo apt update && sudo apt install -y xclip
+    env:
+    - DISPLAY=:99.0
+    addons:
+      apt:
+        update: true
+        packages:
+        - xclip
     script:
     - xclip -version
     - pipenv run test
