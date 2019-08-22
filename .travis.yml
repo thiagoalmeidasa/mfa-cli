@@ -26,7 +26,9 @@ jobs:
         update: true
         packages:
         - xclip
-    script: pipenv run test
+    script:
+    - xclip -version
+    - pipenv run test
 
 
   - stage: deploy
