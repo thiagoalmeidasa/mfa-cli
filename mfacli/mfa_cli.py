@@ -49,10 +49,18 @@ def new_totp(keyname, keyfile):
         keyname = totp.choose_one_key()
     totp_now = totp.get_new_totp(keyname)
     remaining_time = 30 - (datetime.now().second % 30)
-    pyperclip.copy(totp_now)
-    print("\n{} otp: {}\nValid for: {} seconds\n"
-          "It is available on your clipboard.".format(keyname, totp_now,
-                                                      remaining_time))
+    try:
+        pyperclip.copy(totp_now)
+        if pyperclip.is_available():
+            pyperclip.copy(totp_now)
+            print("\n{} otp: {}\nValid for: {} seconds\n"
+                  "It is available on your clipboard.".format(
+                      keyname, totp_now, remaining_time))
+    except pyperclip.PyperclipException:
+        print("\n{} otp: {}\nValid for: {} seconds\n".format(
+            keyname, totp_now, remaining_time))
+        print("Consider installing xclip/xsel to export"
+              " your totp to clipboard")
 
 
 @main.command()
