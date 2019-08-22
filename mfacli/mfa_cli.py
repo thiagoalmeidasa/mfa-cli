@@ -15,6 +15,8 @@ Todo:
 
 __version__ = "0.3.0"
 
+import errno
+import os
 from datetime import datetime
 
 import click
@@ -24,6 +26,22 @@ import pyperclip
 from .manage_totp import TOTP
 
 CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
+
+
+def keyfile_default_path():
+    home_dir = os.path.expanduser('~')
+    try:
+        from xdg.BaseDirectory import xdg_config_home
+    except ImportError:
+        xdg_config_home = os.path.join(home_dir, ".config")
+    for config in [
+            os.path.join(home_dir, '.gitconfig'),
+            os.path.join(xdg_config_home, 'git', 'config'),
+    ]:
+        if os.path.exists(config):
+            return keyfile_path
+    raise FileNotFoundError(
+        errno.ENOENT, os.strerror(errno.ENOENT), filename)
 
 
 # yapf: disable
