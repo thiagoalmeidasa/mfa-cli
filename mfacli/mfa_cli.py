@@ -51,8 +51,8 @@ def new_totp(keyname, keyfile):
     remaining_time = 30 - (datetime.now().second % 30)
     pyperclip.copy(totp_now)
     print("\n{} otp: {}\nValid for: {} seconds\n"
-          "Available on your clipboard.".format(keyname, totp_now,
-                                                remaining_time))
+          "It is available on your clipboard.".format(keyname, totp_now,
+                                                      remaining_time))
 
 
 @main.command()
