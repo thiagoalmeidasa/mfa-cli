@@ -16,8 +16,8 @@ import tempfile
 from click.testing import CliRunner
 
 import pytest
-from mfacli import mfa_cli
 from pyotp import random_base32
+from mfacli import mfa_cli
 
 VOWELS = "aeiou"
 CONSONANTS = "".join(set(string.ascii_lowercase) - set(VOWELS))
@@ -53,10 +53,6 @@ def generate_service_key_pair():
             service_name += random.choice(VOWELS)
     return service_name, random_base32()
 
-
-# @pytest.mark.usefixtures("cleandir")
-# def test_cwd_again_starts_empty():
-    # assert os.listdir(os.getcwd()) == []
 
 @pytest.mark.usefixtures("cleandir")
 def generate_keyfile():
@@ -152,16 +148,26 @@ def test_fail_new_totp_invalid_keyname_cli(runner):
 
 @pytest.mark.usefixtures("runner", "cleandir")
 def test_fail_new_totp_invalid_keyformat_cli(runner):
-    """Fail due an invalid keyname"""
+    """Fail due an invalid key format"""
 
-    expected_result_string = "Invalid key for: {} verify it with your provider \
-                             or get a new one".format(service_name)
-    keyfile = generate_keyfile()
-    totp = mfa_cli.TOTP(keyfile)
-    totp.secret_keys
-    result = runner.invoke(mfa_cli.main, [
-        'new-totp', '--keyfile', keyfile, '--keyname', '{}'.format(
-            random_base32())
-    ])
-    assert result.exit_code == 1
-    assert result.output.find(expected_result_string) != -1
+    expected_result_string = "verify it with your provider or get a new one"
+
+    _, keyfile_path = tempfile.mkstemp(dir=os.getcwd())
+
+    with open(keyfile_path, 'a+t') as keyfile:
+        count = 0
+        while count <= 4:
+            service_name, secret_key = generate_service_key_pair()
+            secret_key = secret_key + 'INVALIDVALUE'
+            keyfile.writelines(service_name + ': ' + secret_key + '\n')
+            count += 1
+        keyfile.seek(0)
+
+    totp = mfa_cli.TOTP(keyfile_path)
+    for key in totp.secret_keys.keys():
+        result = runner.invoke(mfa_cli.main, [
+            'new-totp', '--keyfile', keyfile_path, '--keyname',
+            '{}'.format(key)
+        ])
+        assert result.exit_code == 1
+        assert result.output.find(expected_result_string) != -1

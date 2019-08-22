@@ -2,11 +2,10 @@
 # -*- coding: utf-8 -*-
 """Generate totp and list services
 """
+import base64
 import sys
 
 import yaml
-
-import base64
 
 try:
     import pyotp
@@ -31,9 +30,8 @@ class TOTP:
             base64.b32decode(self.get_key_by_name(keyname))
             return True
         except base64.binascii.Error:
-            print(
-                "Invalid key for: {}, verify it with your provider or get a new one"
-                .format(keyname))
+            print("Invalid key for: {}, verify it with your provider"
+                  " or get a new one".format(keyname))
             sys.exit(1)
 
     def read_keys_file(self):
