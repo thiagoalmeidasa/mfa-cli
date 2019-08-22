@@ -17,13 +17,11 @@ __version__ = "0.2.0"
 
 from datetime import datetime
 
-from .manage_totp import TOTP
+import click
 
-try:
-    import click
-except ImportError:
-    print("You must install click:")
-    print("pip install click")
+import pyperclip
+
+from .manage_totp import TOTP
 
 CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
 
@@ -46,11 +44,15 @@ def main():
 def new_totp(keyname, keyfile):
     """Generate a new key based totp for a service"""
     totp = TOTP(keyfile)
+    if not keyname:
+        print("No key selected, select a key from the list:")
+        keyname = totp.choose_one_key()
     totp_now = totp.get_new_totp(keyname)
     remaining_time = 30 - (datetime.now().second % 30)
-    print(
-        "Your totp for {} service:\n {}\n It is valid for {} seconds.".format(
-            keyname, totp_now, remaining_time))
+    pyperclip.copy(totp_now)
+    print("\n{} otp: {}\nValid for: {} seconds\n"
+          "It is available on your clipboard.".format(keyname, totp_now,
+                                                      remaining_time))
 
 
 @main.command()
