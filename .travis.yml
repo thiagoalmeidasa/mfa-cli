@@ -21,6 +21,11 @@ jobs:
     install:
     - pip install pipenv
     - pipenv install --dev
+    addons:
+      apt:
+        update: true
+        packages:
+        - xclip
     script: pipenv run test
 
 
@@ -31,7 +36,7 @@ jobs:
     - pipenv install --deploy
     deploy:
       provider: pypi
-      user: '@token'
+      user: ' __token__'
       password: $PYPI_PASSWORD
       distributions: sdist
       on:
