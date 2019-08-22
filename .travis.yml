@@ -29,7 +29,6 @@ jobs:
         packages:
         - xclip
     script:
-    - xclip -version
     - pipenv run test
 
 
