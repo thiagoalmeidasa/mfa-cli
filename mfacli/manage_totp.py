@@ -27,7 +27,7 @@ class TOTP:
     def verify_key(self, keyname):
         """Verify if a secret_key is a valid base32 value"""
         try:
-            base64.b32decode(self.get_key_by_name(keyname))
+            base64.b32decode(self.get_key_by_name(keyname).upper())
             return True
         except base64.binascii.Error:
             print("Invalid key for: {}, verify it with your provider"
