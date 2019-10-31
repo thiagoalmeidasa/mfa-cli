@@ -17,5 +17,6 @@ python_version = "3.7"
 
 [scripts]
 test = 'pytest'
+lint = 'pylint mfacli'
 
 # vim: ft=toml

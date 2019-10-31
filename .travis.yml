@@ -5,17 +5,15 @@ script:
 
 language: python
 python: 3.7
-# cache:
-#   directories:
-#     - $HOME/virtualenv/python3.6/
 
 jobs:
   include:
   - stage: lint
-    script: pylint mfacli/
     install:
     - pip install pipenv
     - pipenv install --dev
+    script:
+    - pipenv run lint
 
   - stage: test
     install:
