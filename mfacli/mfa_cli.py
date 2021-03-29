@@ -13,7 +13,7 @@ Todo:
     * Use pyAesCrypt for keyfile encryption
 """
 
-__version__ = "0.3.2"
+__version__ = "0.3.3"
 
 from datetime import datetime
 
