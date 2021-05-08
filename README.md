@@ -1,6 +1,6 @@
 # mfa-cli
 
-[![Build Status](https://travis-ci.org/thiagoalmeidasa/mfa-cli.svg?branch=master)](https://travis-ci.org/thiagoalmeidasa/mfa-cli)
+[![CI](https://github.com/thiagoalmeidasa/mfa-cli/actions/workflows/ci.yaml/badge.svg)](https://github.com/thiagoalmeidasa/mfa-cli/actions/workflows/ci.yaml)
 
 CLI tool for generating one-time passwords.
 
