@@ -13,15 +13,16 @@ Todo:
     * Use pyAesCrypt for keyfile encryption
 """
 
-__version__ = "0.3.4"
-
 from datetime import datetime
 
 import click
-
+import pkg_resources
 import pyperclip
 
 from .manage_totp import TOTP
+
+__version__ = pkg_resources.require("mfa_cli")[0].version
+
 
 CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
 

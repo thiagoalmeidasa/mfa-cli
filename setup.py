@@ -1,11 +1,7 @@
 # -*- coding: utf-8 -*-
 """setup.py: setuptools control."""
 
-import re
 from setuptools import setup
-
-version = re.search('^__version__\s*=\s*"(.*)"',
-                    open('mfacli/mfa_cli.py').read(), re.M).group(1)
 
 with open("README.md", "rb") as f:
     LONG_DESCR = f.read().decode("utf-8")
@@ -14,7 +10,8 @@ setup(
     name="mfa-cli",
     packages=["mfacli"],
     entry_points={"console_scripts": ['mfa-cli = mfacli.mfa_cli:main']},
-    version=version,
+    version_config=True,
+    setup_requires=['setuptools-git-versioning'],
     description='CLI tool for generating one-time passwords.',
     long_description=LONG_DESCR,
     author='Thiago Almeida',
